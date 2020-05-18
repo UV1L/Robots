@@ -3,19 +3,23 @@ package gui;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
 import StateLogic.MemorableFrame;
+import StateLogic.Pair;
 import StateLogic.SaveNLoad;
 import StateLogic.State;
 import log.Logger;
-import StateLogic.State;
 
 public class MainApplicationFrame extends JFrame
 {
+
     private final JDesktopPane desktopPane = new JDesktopPane();
-    private final HashMap<String, State> allStates = new SaveNLoad().loadStates();
-    private final HashMap<String, State> states = new HashMap<String, State>();
+    private final ArrayList<String> allStates = new SaveNLoad().loadStates();
+    private final HashMap<String, State> states = new HashMap<>();
+    private final LogWindow logWindow;
+    private final GameWindow gameWindow;
 
     protected MainApplicationFrame() {
         int inset = 50;
@@ -27,14 +31,12 @@ public class MainApplicationFrame extends JFrame
         setContentPane(desktopPane);
 
 
-        LogWindow logWindow = createLogWindow();
+        logWindow = createLogWindow();
         setPrefixState("log", logWindow);
-        states.put("log", logWindow.getState());
         addWindow(logWindow);
 
-        GameWindow gameWindow = new GameWindow();
+        gameWindow = new GameWindow();
         setPrefixState("game", gameWindow);
-        states.put("game", gameWindow.getState());
         addWindow(gameWindow);
 
         var menuCreator = new MenuCreator(this);
@@ -68,25 +70,50 @@ public class MainApplicationFrame extends JFrame
         desktopPane.add(frame);
     }
 
+    /**
+     * метод вызывает диалоговое окно закрытия приложения
+     * при нажатии на "yes" все состояния сохранятся в файл
+     */
     private void close() {
         int choice = JOptionPane.showConfirmDialog(this,
                                                     "Вы точно хотите выйти?",
                                                     "Окно подтверждения",
                                                     JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
+            states.put("log", logWindow.getState());
+            states.put("game", gameWindow.getState());
             new SaveNLoad().saveStates(states);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
         }
     }
 
+    /**
+     * устанавливает состояние переданному фрэйму
+     * @param prefix для парсинга нужного состояния
+     * @param window фрэйм
+     */
     private void setPrefixState(String prefix, MemorableFrame window) {
-        try {
-            var prefixState = allStates.get(prefix);
-            if (prefixState != null)
-                window.setState(prefixState);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        for (var str:
+             allStates) {
+            if (str.contains(prefix)) {
+                var params = str.split(" ");
+                var width = Integer.parseInt(params[1]);
+                var height = Integer.parseInt(params[2]);
+                var x = Integer.parseInt(params[3]);
+                var y = Integer.parseInt(params[4]);
+                try {
+                    var position = new Pair(width, height);
+                    var coordinates = new Pair(x, y);
+                    var isVisible = params[5].equals("true");
+                    var isDisplayable = params[6].equals("true");
+
+                    State prefixState = new State(isVisible, isDisplayable, position, coordinates);
+                    window.setState(prefixState);
+                }
+                catch (NumberFormatException ignored) {
+                    System.out.println(ignored);
+                }
+            }
         }
     }
 }

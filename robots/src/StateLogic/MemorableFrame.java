@@ -17,9 +17,7 @@ abstract public class MemorableFrame extends JInternalFrame {
     }
 
     public void setState(State state) {
-        if (state.isVisible()) {
-            setVisible(true);
-        }
+        setVisible(state.isVisible() && state.isDisplayable());
 
         setBounds(state.getCoordinates().first(),
                   state.getCoordinates().second(),
@@ -30,6 +28,6 @@ abstract public class MemorableFrame extends JInternalFrame {
     public State getState() {
         var position = new Pair(getWidth(), getHeight());
         var coordinates = new Pair(getX(), getY());
-        return new State(isDisplayable(), position, coordinates);
+        return new State(isVisible(), isDisplayable(), position, coordinates);
     }
 }

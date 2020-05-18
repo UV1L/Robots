@@ -1,25 +1,32 @@
 package StateLogic;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Класс для загрузки состояний объектов в файл и выгрузки из того же файла
  * @version 1.0
  */
 public class SaveNLoad {
-    private final String file = System.getProperty("user.home") + "\\data";
 
     /**
      * записывает состояния в файл
      * @param allStates хэш мап со всеми состояниями всех объектов разделенных по префиксам
      */
     public void saveStates(HashMap<String, State> allStates) {
-        try (var fos = new FileOutputStream(file);
-             var oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(allStates);
-            oos.close();
+        try {
+            FileWriter file = new FileWriter("states.txt");
+            for (var key: allStates.keySet()) {
+                file.write(key + " " + allStates.get(key).getPosition().first() +
+                        " " + allStates.get(key).getPosition().second() +
+                        " " + allStates.get(key).getCoordinates().first() +
+                        " " + allStates.get(key).getCoordinates().second() +
+                        " " + allStates.get(key).isVisible() +
+                        " " + allStates.get(key).isDisplayable() + '\n');
+            }
+            file.close();
         }
 
         catch (IOException ignored) {
@@ -28,17 +35,21 @@ public class SaveNLoad {
 
     /**
      * возвращает состояния прочитанные из файла
-     * @return хэш мап прочитанный из файла со всеми состояниями и префиксами
+     * @return ArrayList строк состояний
      */
-    public HashMap<String, State> loadStates() {
-        try (var fis = new FileInputStream(file);
-             var ois = new ObjectInputStream(fis)) {
-
-            return (HashMap<String, State>) ois.readObject();
+    public ArrayList<String> loadStates() {
+        ArrayList<String> states = new ArrayList<>();
+        try {
+            FileReader allStates = new FileReader("states.txt");
+            Scanner scanner = new Scanner(allStates);
+            while (scanner.hasNextLine()) {
+                states.add(scanner.nextLine());
+            }
+            return states;
         }
 
-        catch (IOException | ClassNotFoundException ignored) {
-            return new HashMap<>();
+        catch (IOException ignored) {
+            return new ArrayList<>();
         }
     }
 
