@@ -1,11 +1,14 @@
 package gui;
 
-import java.awt.BorderLayout;
+import StateLogic.MemorableFrame;
 
-import javax.swing.JInternalFrame;
+import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
-public class GameWindow extends JInternalFrame
+/**
+ * Изменено наследование
+ */
+public class GameWindow extends MemorableFrame
 {
     private final GameVisualizer m_visualizer;
     public GameWindow() 
