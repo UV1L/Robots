@@ -7,15 +7,11 @@ import java.awt.TextArea;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 
-import StateLogic.MemorableFrame;
 import log.LogChangeListener;
 import log.LogEntry;
 import log.LogWindowSource;
 
-/**
- * Изменено наследование
- */
-public class LogWindow extends MemorableFrame implements LogChangeListener
+public class LogWindow extends JInternalFrame implements LogChangeListener
 {
     private LogWindowSource m_logSource;
     private TextArea m_logContent;
