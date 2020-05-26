@@ -51,8 +51,7 @@ public class MainApplicationFrame extends JFrame
 
     }
 
-    private LogWindow createLogWindow()
-    {
+    private LogWindow createLogWindow() {
         LogWindow logWindow = new LogWindow(Logger.getDefaultLogSource());
         logWindow.setLocation(10,10);
         logWindow.setSize(300, 800);
@@ -65,8 +64,7 @@ public class MainApplicationFrame extends JFrame
     /**
      * убрал setVisible
      */
-    private void addWindow(JInternalFrame frame)
-    {
+    private void addWindow(JInternalFrame frame) {
         desktopPane.add(frame);
         frame.setVisible(true);
     }

@@ -60,16 +60,13 @@ public class MenuCreator {
         menu.add(lookAndFeelItem);
     }
 
-    private void setLookAndFeel(String className)
-    {
-        try
-        {
+    private void setLookAndFeel(String className) {
+        try {
             UIManager.setLookAndFeel(className);
             SwingUtilities.updateComponentTreeUI(frame);
         }
         catch (ClassNotFoundException | InstantiationException
-                | IllegalAccessException | UnsupportedLookAndFeelException ignored)
-        {
+                | IllegalAccessException | UnsupportedLookAndFeelException ignored) {
         }
     }
 }

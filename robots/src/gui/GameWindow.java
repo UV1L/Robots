@@ -1,18 +1,16 @@
 package gui;
 
 import StateLogic.MemorableFrame;
-
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 /**
  * Изменено наследование
  */
-public class GameWindow extends MemorableFrame
-{
+public class GameWindow extends MemorableFrame {
     private final GameVisualizer m_visualizer;
-    public GameWindow() 
-    {
+
+    public GameWindow() {
         super("Игровое поле", true, true, true, true);
         m_visualizer = new GameVisualizer();
         JPanel panel = new JPanel(new BorderLayout());

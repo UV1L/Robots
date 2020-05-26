@@ -22,7 +22,8 @@ abstract public class MemorableFrame extends JInternalFrame {
             if (state.isIcon())
                 setIcon(true);
         }
-        catch (PropertyVetoException ignored) {}
+        catch (PropertyVetoException ignored) {
+        }
 
         setBounds(state.getCoordinates().first(),
                   state.getCoordinates().second(),

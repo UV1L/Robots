@@ -21,9 +21,7 @@ public class Pair<First, Second> {
     }
 
     public Pair() {
-
     }
-
 
     public First first() {
         return t;
