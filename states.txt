@@ -1,0 +1,2 @@
+game 778 517 869 372 true true
+log 1046 1034 163 107 true true

@@ -24,7 +24,7 @@ public class SaveNLoad {
                         " " + allStates.get(key).getCoordinates().first() +
                         " " + allStates.get(key).getCoordinates().second() +
                         " " + allStates.get(key).isVisible() +
-                        " " + allStates.get(key).isDisplayable() + '\n');
+                        " " + allStates.get(key).isIcon() + '\n');
             }
             file.close();
         }

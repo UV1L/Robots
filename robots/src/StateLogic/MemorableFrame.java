@@ -1,6 +1,7 @@
 package StateLogic;
 
 import javax.swing.*;
+import java.beans.PropertyVetoException;
 
 /**
  * Класс-расширение для JInternalFrame с возможностью присваивать фрэйму состояние
@@ -17,7 +18,11 @@ abstract public class MemorableFrame extends JInternalFrame {
     }
 
     public void setState(State state) {
-        setVisible(state.isVisible() && state.isDisplayable());
+        try {
+            if (state.isIcon())
+                setIcon(true);
+        }
+        catch (PropertyVetoException ignored) {}
 
         setBounds(state.getCoordinates().first(),
                   state.getCoordinates().second(),
@@ -28,6 +33,6 @@ abstract public class MemorableFrame extends JInternalFrame {
     public State getState() {
         var position = new Pair(getWidth(), getHeight());
         var coordinates = new Pair(getX(), getY());
-        return new State(isVisible(), isDisplayable(), position, coordinates);
+        return new State(isVisible(), isIcon, position, coordinates);
     }
 }

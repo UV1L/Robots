@@ -7,20 +7,20 @@ package StateLogic;
 public class State {
 
     private final boolean isVisible;
-    private final boolean isDisplayable;
+    private final boolean isIcon;
     private final Pair<Integer, Integer> position;
     private final Pair<Integer, Integer> coordinates;
 
     /**
      *
      * @param isVisible - свернут ли фрейм
-     * @param isDisplayable - открыт ли фрейм
+     * @param isIcon - открыт ли фрейм
      * @param position - позиция фрэйма
      * @param coordinates - координаты фрэйма
      */
-    public State(boolean isVisible, boolean isDisplayable, Pair<Integer, Integer> position, Pair<Integer, Integer> coordinates) {
+    public State(boolean isVisible, boolean isIcon, Pair<Integer, Integer> position, Pair<Integer, Integer> coordinates) {
         this.isVisible = isVisible;
-        this.isDisplayable = isDisplayable;
+        this.isIcon = isIcon;
         this.position = position;
         this.coordinates = coordinates;
     }
@@ -29,8 +29,8 @@ public class State {
         return isVisible;
     }
 
-    public boolean isDisplayable() {
-        return isDisplayable;
+    public boolean isIcon() {
+        return isIcon;
     }
 
     public Pair<Integer, Integer> getPosition() {

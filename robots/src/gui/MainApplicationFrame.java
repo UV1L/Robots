@@ -68,6 +68,7 @@ public class MainApplicationFrame extends JFrame
     private void addWindow(JInternalFrame frame)
     {
         desktopPane.add(frame);
+        frame.setVisible(true);
     }
 
     /**
@@ -105,9 +106,9 @@ public class MainApplicationFrame extends JFrame
                     var position = new Pair(width, height);
                     var coordinates = new Pair(x, y);
                     var isVisible = params[5].equals("true");
-                    var isDisplayable = params[6].equals("true");
+                    var isIcon = params[6].equals("true");
 
-                    State prefixState = new State(isVisible, isDisplayable, position, coordinates);
+                    State prefixState = new State(isVisible, isIcon, position, coordinates);
                     window.setState(prefixState);
                 }
                 catch (NumberFormatException ignored) {
