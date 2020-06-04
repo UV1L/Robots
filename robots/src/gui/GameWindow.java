@@ -5,7 +5,9 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 /**
- * Изменено наследование
+ * класс игрового окна
+ * наследуется от MemorableFrame, который, в свою очередь, наследуется от JInternalFrame
+ * реализует функционал сохранения и загрузки состояния
  */
 public class GameWindow extends MemorableFrame {
     private final GameVisualizer m_visualizer;

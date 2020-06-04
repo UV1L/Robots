@@ -8,13 +8,13 @@ import java.awt.event.WindowEvent;
 
 /**
  * Класс с методами для создания менюшек
- * @version 1.0
+ * @version 1.1
  */
 public class MenuCreator {
     /**
      * главное окно, с которым будут работать методы
      */
-    JFrame frame;
+    private final JFrame frame;
 
     public MenuCreator(JFrame frame) {
         this.frame = frame;
@@ -27,7 +27,7 @@ public class MenuCreator {
         lookAndFeelMenu.setMnemonic(KeyEvent.VK_V);
         lookAndFeelMenu.getAccessibleContext().setAccessibleDescription(
                 "Управление режимом отображения приложения");
-        IMenuEvent schemeEvent = () -> setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        Runnable schemeEvent = () -> setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         addMenu(schemeEvent, lookAndFeelMenu, "Системная схема");
         addMenu(schemeEvent, lookAndFeelMenu, "Универсальная схема");
 
@@ -35,12 +35,12 @@ public class MenuCreator {
         testMenu.setMnemonic(KeyEvent.VK_T);
         testMenu.getAccessibleContext().setAccessibleDescription(
                 "Тестовые команды");
-        IMenuEvent logEvent = () -> Logger.debug("Новая строка");
+        Runnable logEvent = () -> Logger.debug("Новая строка");
         addMenu(logEvent, testMenu, "Сообщение в лог");
 
         JMenu optionMenu = new JMenu("Опции");
         optionMenu.setMnemonic(KeyEvent.VK_F);
-        IMenuEvent exitEvent = () -> Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
+        Runnable exitEvent = () -> Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
                 new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
         addMenu(exitEvent, optionMenu, "Выход");
 
@@ -51,10 +51,10 @@ public class MenuCreator {
         return menuBar;
     }
 
-    private void addMenu(IMenuEvent e, JMenu menu, String name) {
+    private void addMenu(Runnable e, JMenu menu, String name) {
         JMenuItem lookAndFeelItem = new JMenuItem(name, KeyEvent.VK_S);
         lookAndFeelItem.addActionListener((event) -> {
-            e.func();
+            e.run();
             frame.invalidate();
         });
         menu.add(lookAndFeelItem);

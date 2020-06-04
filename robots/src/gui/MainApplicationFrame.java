@@ -3,8 +3,9 @@ package gui;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.*;
 import StateLogic.MemorableFrame;
 import StateLogic.Pair;
@@ -12,12 +13,10 @@ import StateLogic.SaveNLoad;
 import StateLogic.State;
 import log.Logger;
 
-public class MainApplicationFrame extends JFrame
-{
-
+public class MainApplicationFrame extends JFrame {
     private final JDesktopPane desktopPane = new JDesktopPane();
-    private final ArrayList<String> allStates = new SaveNLoad().loadStates();
-    private final HashMap<String, State> states = new HashMap<>();
+    private final List<String> allStates = new SaveNLoad().loadStates();
+    private final Map<String, State> states = new HashMap<>();
     private final LogWindow logWindow;
     private final GameWindow gameWindow;
 
@@ -62,7 +61,8 @@ public class MainApplicationFrame extends JFrame
     }
 
     /**
-     * убрал setVisible
+     * метод для добавления окон
+     * @param frame - окно, которое нужно добавить и отобразить
      */
     private void addWindow(JInternalFrame frame) {
         desktopPane.add(frame);
@@ -101,16 +101,16 @@ public class MainApplicationFrame extends JFrame
                 var x = Integer.parseInt(params[3]);
                 var y = Integer.parseInt(params[4]);
                 try {
-                    var position = new Pair(width, height);
-                    var coordinates = new Pair(x, y);
+                    var bounds = new Pair<>(width, height);
+                    var coordinates = new Pair<>(x, y);
                     var isVisible = params[5].equals("true");
                     var isIcon = params[6].equals("true");
 
-                    State prefixState = new State(isVisible, isIcon, position, coordinates);
+                    State prefixState = new State(isVisible, isIcon, bounds, coordinates);
                     window.setState(prefixState);
                 }
-                catch (NumberFormatException ignored) {
-                    System.out.println(ignored);
+                catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
             }
         }

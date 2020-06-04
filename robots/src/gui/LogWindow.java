@@ -10,7 +10,10 @@ import log.LogEntry;
 import log.LogWindowSource;
 
 /**
- * Изменено наследование
+ * класс окна логов
+ * наследуется от MemorableFrame, который, в свою очередь, наследуется от JInternalFrame
+ * реализует функционал сохранения и загрузки состояния
+ * @version 1.1
  */
 public class LogWindow extends MemorableFrame implements LogChangeListener {
     private LogWindowSource m_logSource;

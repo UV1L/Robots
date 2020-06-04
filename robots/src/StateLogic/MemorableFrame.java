@@ -6,9 +6,9 @@ import java.beans.PropertyVetoException;
 /**
  * Класс-расширение для JInternalFrame с возможностью присваивать фрэйму состояние
  * и получать состояние фрэйма
- * @version 1.0
+ * @version 1.1
  */
-abstract public class MemorableFrame extends JInternalFrame {
+public abstract class MemorableFrame extends JInternalFrame {
     public MemorableFrame(String title,
                           boolean resizable,
                           boolean closable,
@@ -27,13 +27,13 @@ abstract public class MemorableFrame extends JInternalFrame {
 
         setBounds(state.getCoordinates().first(),
                   state.getCoordinates().second(),
-                  state.getPosition().first(),
-                  state.getPosition().second());
+                  state.getBounds().first(),
+                  state.getBounds().second());
     }
 
     public State getState() {
-        var position = new Pair(getWidth(), getHeight());
-        var coordinates = new Pair(getX(), getY());
-        return new State(isVisible(), isIcon, position, coordinates);
+        Pair<Integer, Integer> bounds = new Pair<>(getWidth(), getHeight());
+        Pair<Integer, Integer> coordinates = new Pair<>(getX(), getY());
+        return new State(isVisible(), isIcon, bounds, coordinates);
     }
 }

@@ -2,26 +2,25 @@ package StateLogic;
 
 /**
  * Класс с полями состояния окна
- * @version 1.0
+ * @version 1.1
  */
 public class State {
-
     private final boolean isVisible;
     private final boolean isIcon;
-    private final Pair<Integer, Integer> position;
+    private final Pair<Integer, Integer> bounds;
     private final Pair<Integer, Integer> coordinates;
 
     /**
      *
      * @param isVisible - свернут ли фрейм
      * @param isIcon - открыт ли фрейм
-     * @param position - позиция фрэйма
+     * @param bounds - размеры рамок фрэйма
      * @param coordinates - координаты фрэйма
      */
-    public State(boolean isVisible, boolean isIcon, Pair<Integer, Integer> position, Pair<Integer, Integer> coordinates) {
+    public State(boolean isVisible, boolean isIcon, Pair<Integer, Integer> bounds, Pair<Integer, Integer> coordinates) {
         this.isVisible = isVisible;
         this.isIcon = isIcon;
-        this.position = position;
+        this.bounds = bounds;
         this.coordinates = coordinates;
     }
 
@@ -33,8 +32,8 @@ public class State {
         return isIcon;
     }
 
-    public Pair<Integer, Integer> getPosition() {
-        return position;
+    public Pair<Integer, Integer> getBounds() {
+        return bounds;
     }
 
     public Pair<Integer, Integer> getCoordinates() {
